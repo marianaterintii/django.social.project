@@ -1,0 +1,80 @@
+{% extends 'layout.html'%}
+{% load static %}
+{% block content %}
+   <h2> USER PROFILE </h2>
+   {%if messages%}   
+   {% for message in messages%}  
+       {% if message.tags == 'error' %}  
+     <div style="color: red; padding: 10 px; border: 3px solid red; margin: 10px;">
+        {{ message }}  
+     </div>
+     {% endif %}
+      {% if message.tags == 'success' %}  
+     <div style="color: green; padding: 10 px; border: 3px solid green; margin: 10px;">
+        {{ message }}  
+     </div>
+      {% endif %}
+     {%endfor%} 
+   {%endif%} 
+
+   {%if profileUser.id == visitingUser.id %}
+     <div>
+       <a href ="/user/profile/edit/{{profileUser.id}}">EDIT </a> 
+       <a href ="/post/create"> + Post </a> 
+     </div>
+   {% endif%}
+
+   <h3> {{profileUser.username}} ({{profileUser.email}})
+          {% if profileUser.id != visitingUser.id and not profileUserIsNotVisitingUserFriend%}
+                 <a href="/user/add/friend/{{profileUser.id}}"> + Add Friend </a>
+          {% endif %}
+   </h3>
+   <img src="{% static profileUser.avatar %}" width="150"/>
+   
+   {% if profileUser.id == visitingUser.id%}
+   <h3>Settings:</h3>
+   {% comment %} on/off notification {% endcomment %}
+        <form action="/user/preferences/notifications">
+        <label>
+            <input 
+                type="checkbox" 
+                name="toggle" 
+                {% if show_notifications %} checked {% endif %} 
+                />
+            notifications 
+        </label>
+            <button>SAVE</button>
+        </form>
+    {% endif%}
+
+   <h3> Posts: </h3>
+<!-- HW 6 -->
+    <ul>
+     {% for post in userPosts %}
+     <li>
+        <a href="/post/get/{{post.id}}">
+            {{ post.title }}   
+                     
+        </a>
+      </li>
+      {% endfor%}
+
+    </ul>
+   <h3> Friends: </h3>
+   <ul>
+     {% for friend in userFriends %}
+     <li>
+        <a href="/user/profile/{{friend.id}}">
+            {{ friend.username }} 
+        </a>
+        
+        <a href="/user/remove/friend/{{friend.id}}">
+          X
+        </a>
+      </li>
+     {% endfor%}
+   </ul>
+
+
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'layout.html'%}
+{%block content%}
+             
+        </ul>
+           <h3> Posts: </h3>
+<!-- HW 6 -->
+    <ul>
+            {{ post.body }}  
+
+    <h2>Comments:</h2>
+    <ul>
+        {% for comment in comments %}
+            <li> {{ comment.author.username }} {{ comment.body }}</li>
+        {% endfor %}
+    </ul>              
+       
+   <h3>Add Comment:</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </ul>
+    </form>
+
+ {%endblock%}
+   

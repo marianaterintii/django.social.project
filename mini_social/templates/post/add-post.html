@@ -1,0 +1,12 @@
+{% extends 'layout.html'%}
+{%block content%}
+        <h2>ADD POST:</h2>
+        <form action="/post/save" method='POST'>
+           <input name="title" type="text" placeholder="title"/><br>  {% comment %} name -salveaza postarea si o transmite mai departe {% endcomment %}
+           <!-- HW4: put another type of field here --> 
+           <textarea rows="10" cols="60" name="body" type="text" placeholder="body"></textarea><br>
+           <button>SAVE</button><br>  
+           {% csrf_token %} 
+        </form>
+{%endblock%}
+   
