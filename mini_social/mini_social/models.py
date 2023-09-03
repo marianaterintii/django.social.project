@@ -11,6 +11,7 @@ class CustomUser(User):
     
     # FRIENDSHIP!!
     friends = models.ManyToManyField('self')
+    
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
