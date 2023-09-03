@@ -20,6 +20,8 @@ from django.urls import path
 from mini_social.views import *
 from django.urls import include, path
 
+from django.contrib import admin
+
 
 urlpatterns = [
     # here routes - adresa sitelor si functiile
@@ -56,6 +58,8 @@ urlpatterns = [
     
     # development
     path("__debug__/", include("debug_toolbar.urls")),
-    
+
+    #admin
+    path("admin/", admin.site.urls)  
     
 ]
